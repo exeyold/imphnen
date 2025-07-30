@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "@types/bun": "^1.2.19",
-    "@types/cookie": "^1.0.0",
     "@types/node": "^20.11.17"
   }
 }
