@@ -1,13 +1,8 @@
-import { createTRPCContext, trpcRouter } from "@packages/trpc";
+import { trpcRouter } from "@packages/trpc";
+import { createTRPCContext } from "@packages/utils/trpc";
 import type { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import packageJSON from "../package.json";
-
-export const CONSTANT = {
-  API_NAME: "IMPHNEN API",
-  API_VERSION: packageJSON.version,
-  PORT: 9000,
-};
 
 export async function TRPCAdapter(request: Request) {
   return await fetchRequestHandler({
@@ -21,10 +16,18 @@ export async function TRPCAdapter(request: Request) {
   });
 }
 
+export function getAPIConfigs() {
+  return {
+    API_NAME: "IMPHNEN API",
+    API_VERSION: packageJSON.version,
+    PORT: 9000,
+  };
+}
+
 export function getDefaultResponse() {
   return {
-    name: CONSTANT.API_NAME,
-    version: CONSTANT.API_VERSION,
+    name: getAPIConfigs().API_NAME,
+    version: getAPIConfigs().API_VERSION,
   };
 }
 
@@ -40,7 +43,7 @@ export function getNotFoundResponse({
 
 export function startLog() {
   console.log(
-    `Server is running on (${detectRuntime()}): http://localhost:${CONSTANT.PORT}`
+    `Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
   );
 }
 

@@ -1,12 +1,12 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono/tiny";
 import {
-  CONSTANT,
+  getAPIConfigs,
   getDefaultResponse,
   getNotFoundResponse,
   startLog,
   TRPCAdapter,
-} from "../configs";
+} from "../helper";
 
 export const app = new Hono({ strict: true })
 
@@ -32,7 +32,7 @@ export const app = new Hono({ strict: true })
   });
 
 serve({
-  port: CONSTANT.PORT,
+  port: getAPIConfigs().PORT,
   fetch: app.fetch,
 });
 

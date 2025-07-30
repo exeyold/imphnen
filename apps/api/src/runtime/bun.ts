@@ -1,11 +1,11 @@
 import { Elysia } from "elysia";
 import {
-  CONSTANT,
+  getAPIConfigs,
   getDefaultResponse,
   getNotFoundResponse,
   startLog,
   TRPCAdapter,
-} from "../configs";
+} from "../helper";
 
 export const app = new Elysia({ strictPath: false })
   .get("/", getDefaultResponse())
@@ -32,6 +32,6 @@ export const app = new Elysia({ strictPath: false })
     }
   })
 
-  .listen(CONSTANT.PORT);
+  .listen(getAPIConfigs().PORT);
 
 startLog();

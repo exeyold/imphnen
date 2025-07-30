@@ -2,10 +2,13 @@
   "name": "@packages/utils",
   "type": "module",
   "exports": {
-    "./cookies": "./src/cookies/index.ts"
+    "./cookies": "./src/cookies/index.ts",
+    "./trpc": "./src/trpc/index.ts"
   },
   "dependencies": {
-    "cookie": "^1.0.2"
+    "@trpc/server": "^11.4.3",
+    "cookie": "^1.0.2",
+    "superjson": "^2.2.2"
   },
   "devDependencies": {
     "@types/bun": "^1.2.19",
