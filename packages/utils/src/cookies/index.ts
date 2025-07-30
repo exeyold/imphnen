@@ -57,3 +57,5 @@ export function deleteCookie(
   // To delete, set Max-Age=0
   setCookie(resHeaders, name, "", { maxAge: 0, ...options });
 }
+
+export type { ParseOptions, SerializeOptions };

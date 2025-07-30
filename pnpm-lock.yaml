@@ -61,20 +61,33 @@ importers:
         specifier: ^4.7.1
         version: 4.20.3
       typescript:
-        specifier: ^5.8.3
+        specifier: 5.8.3
         version: 5.8.3
 
   packages/trpc:
     dependencies:
+      '@packages/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.4.3(typescript@5.8.3)
-      cookie:
-        specifier: ^1.0.2
-        version: 1.0.2
       superjson:
         specifier: ^2.2.2
         version: 2.2.2
+    devDependencies:
+      '@types/bun':
+        specifier: ^1.2.19
+        version: 1.2.19(@types/react@19.1.9)
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.19.9
+
+  packages/utils:
+    dependencies:
+      cookie:
+        specifier: ^1.0.2
+        version: 1.0.2
     devDependencies:
       '@types/bun':
         specifier: ^1.2.19
@@ -603,6 +616,7 @@ packages:
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
+    hasBin: true
 
   uint8array-extras@1.4.0:
     resolution: {integrity: sha512-ZPtzy0hu4cZjv3z5NW9gfKnNLjoz4y6uv4HlelAjDK7sY/xOkKZv9xK/WQpcsBB3jEybChz9DPC2U/+cusjJVQ==}

@@ -1,10 +1,10 @@
+import type { SerializeOptions } from "@packages/utils/cookies";
+import { deleteCookie, parseCookies, setCookie } from "@packages/utils/cookies";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
-import type { SerializeOptions } from "cookie";
-import { deleteCookie, parseCookies, setCookie } from "./cookie";
 import { publicProcedure, router } from "./trpc";
 
 export const trpcRouter = router({
-  greeting: publicProcedure.query(({ ctx }) => "hello tRPC v10!"),
+  greeting: publicProcedure.query(() => "hello tRPC v10!"),
 });
 
 export function createTRPCContext({
