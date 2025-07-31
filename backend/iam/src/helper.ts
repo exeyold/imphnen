@@ -10,6 +10,47 @@ export function getAPIConfigs() {
   };
 }
 
+export async function forwardToAuth(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  url.pathname = `/api/auth${url.pathname}`;
+
+  // Preserve method, headers, body, etc.
+  const proxyReq = new Request(url.toString(), request);
+  const response = await auth.handler(proxyReq);
+
+  if (response.status === 404) {
+    return new Response(
+      JSON.stringify(
+        getNotFoundResponse({
+          method: request.method,
+          path: request.url,
+        })
+      ),
+      {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  if (response.status >= 500) {
+    return new Response(
+      JSON.stringify(
+        getInternalServerErrorResponse({
+          method: request.method,
+          path: request.url,
+        })
+      ),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  return response;
+}
+
 export function getDefaultResponse() {
   return {
     name: getAPIConfigs().API_NAME,
@@ -25,6 +66,20 @@ export function getNotFoundResponse({
   path: string;
 }) {
   return { error: "Endpoint not found", method, path };
+}
+
+export function getInternalServerErrorResponse({
+  method,
+  path,
+}: {
+  method: string;
+  path: string;
+}) {
+  return {
+    error: "Internal server error",
+    method,
+    path,
+  };
 }
 
 export async function getOpenAPISchema() {

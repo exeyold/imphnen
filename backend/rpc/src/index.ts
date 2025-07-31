@@ -1,5 +1,9 @@
 import { Hono } from "hono/tiny";
-import { getDefaultResponse, getNotFoundResponse, RPCAdapter } from "./helper";
+import {
+  forwardToRPC,
+  getDefaultResponse,
+  getNotFoundResponse,
+} from "./helper";
 
 export const app = new Hono({ strict: true })
 
@@ -7,14 +11,8 @@ export const app = new Hono({ strict: true })
     return c.json(getDefaultResponse());
   })
 
-  .get("/procedure", (c) => {
-    const method = c.req.raw?.method ?? c.req.method;
-    const path = c.req.url;
-    return c.json(getNotFoundResponse({ method, path }), 404);
-  })
-
-  .all("/procedure/*", async (c) => {
-    return await RPCAdapter(c.req.raw);
+  .all("/*", async (c) => {
+    return await forwardToRPC(c.req.raw);
   })
 
   .notFound((c) => {

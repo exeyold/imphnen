@@ -1,8 +1,9 @@
 import {
+  forwardToRPC,
   getAPIConfigs,
   getDefaultResponse,
+  getInternalServerErrorResponse,
   getNotFoundResponse,
-  RPCAdapter,
   startLog,
 } from "../helper";
 
@@ -11,6 +12,7 @@ Bun.serve({
   async fetch(request) {
     const url = new URL(request.url);
     const path = url.pathname;
+    const method = request.method;
 
     if (path === "/") {
       return new Response(JSON.stringify(getDefaultResponse()), {
@@ -19,36 +21,26 @@ Bun.serve({
       });
     }
 
-    if (path === "/procedure") {
-      const body = getNotFoundResponse({ method: request.method, path });
-      return new Response(JSON.stringify(body), {
-        status: 404,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    if (path.startsWith("/procedure/")) {
+    if (path.startsWith("/")) {
       try {
-        return await RPCAdapter(request);
+        return await forwardToRPC(request);
       } catch (err) {
-        console.error("❌ RPCAdapter threw error:", err);
-        const body = getNotFoundResponse({ method: request.method, path });
-        return new Response(JSON.stringify(body), {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        });
+        console.error("❌ RPCForwarder threw error:", err);
+        return new Response(
+          JSON.stringify(getInternalServerErrorResponse({ method, path })),
+          {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
     }
 
     // Fallback for all other routes
-    return new Response(
-      JSON.stringify({
-        error: "Endpoint not found",
-        method: request.method,
-        path,
-      }),
-      { status: 404, headers: { "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify(getNotFoundResponse({ method, path })), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
   },
 });
 

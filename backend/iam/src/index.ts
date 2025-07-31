@@ -1,9 +1,7 @@
-import { auth } from "@packages/auth";
 import { Scalar } from "@scalar/hono-api-reference";
-import { logger } from "hono/logger";
-import { proxy } from "hono/proxy";
 import { Hono } from "hono/tiny";
 import {
+  forwardToAuth,
   getDefaultResponse,
   getNotFoundResponse,
   getOpenAPISchema,
@@ -15,8 +13,6 @@ export const app = new Hono({ strict: true })
     return c.json(getDefaultResponse());
   })
 
-  .use(logger())
-
   .get("/docs/json", async (c) => {
     const schema = await getOpenAPISchema();
     return c.json(schema);
@@ -24,18 +20,11 @@ export const app = new Hono({ strict: true })
 
   .get("/docs", Scalar({ url: "/docs/json" }))
 
-  .on(["GET", "POST"], "/api/auth/*", (c) => {
-    return auth.handler(c.req.raw);
-  })
-
-  .on(["GET", "POST"], "/:rest{.*}", async (c) => {
-    const route = c.req.param("rest");
-    const target = new URL(`/api/auth/${route}`, c.req.url);
-    return proxy(target, c.req);
-  })
+  .all("/*", (c) => forwardToAuth(c.req.raw))
 
   .notFound((c) => {
     const method = c.req.raw?.method ?? c.req.method;
     const path = c.req.url;
+
     return c.json(getNotFoundResponse({ method, path }), 404);
   });

@@ -13,6 +13,7 @@ import * as schema from "./db/schema";
 
 export const auth = betterAuth({
   baseURL: env.IAM_URL,
+
   database: drizzleAdapter(db, {
     provider: "pg",
     usePlural: true,

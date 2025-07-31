@@ -5,9 +5,17 @@ import type { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import packageJSON from "../package.json";
 
-export async function RPCAdapter(request: Request) {
+export function getAPIConfigs() {
+  return {
+    API_NAME: "IMPHNEN API",
+    API_VERSION: packageJSON.version,
+    PORT: env.RPC_PORT,
+  };
+}
+
+export async function forwardToRPC(request: Request) {
   return await fetchRequestHandler({
-    endpoint: "/procedure",
+    endpoint: "/",
     router: trpcRouter,
     req: request,
     createContext: createTRPCContext,
@@ -15,14 +23,6 @@ export async function RPCAdapter(request: Request) {
       logTRPCError(error);
     },
   });
-}
-
-export function getAPIConfigs() {
-  return {
-    API_NAME: "IMPHNEN API",
-    API_VERSION: packageJSON.version,
-    PORT: env.RPC_PORT,
-  };
 }
 
 export function getDefaultResponse() {
@@ -40,6 +40,20 @@ export function getNotFoundResponse({
   path: string;
 }) {
   return { error: "Endpoint not found", method, path };
+}
+
+export function getInternalServerErrorResponse({
+  method,
+  path,
+}: {
+  method: string;
+  path: string;
+}) {
+  return {
+    error: "Internal server error",
+    method,
+    path,
+  };
 }
 
 export function startLog() {

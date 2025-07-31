@@ -1,6 +1,8 @@
 import { env } from "@packages/env";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
+const JWKS = createRemoteJWKSet(new URL(`${env.IAM_URL}/jwks`));
+
 /**
  * Validates a JWT using a remote JWKS endpoint.
  *
@@ -12,8 +14,6 @@ import { createRemoteJWKSet, jwtVerify } from "jose";
  * @throws {Error} - Throws an error if the token is invalid or verification fails.
  */
 export async function validateToken(token: string) {
-  const JWKS = createRemoteJWKSet(new URL(`${env.IAM_URL}/api/auth/jwks`));
-
   try {
     const { payload } = await jwtVerify(token, JWKS, {
       issuer: env.IAM_URL,
