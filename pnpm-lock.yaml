@@ -27,7 +27,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  apps/rpc:
+  backend/rpc:
     dependencies:
       '@hono/node-server':
         specifier: ^1.17.1
