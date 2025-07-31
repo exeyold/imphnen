@@ -4,7 +4,7 @@ import type { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import packageJSON from "../package.json";
 
-export async function TRPCAdapter(request: Request) {
+export async function RPCAdapter(request: Request) {
   return await fetchRequestHandler({
     endpoint: "/procedure",
     router: trpcRouter,

@@ -3,8 +3,8 @@ import {
   getAPIConfigs,
   getDefaultResponse,
   getNotFoundResponse,
+  RPCAdapter,
   startLog,
-  TRPCAdapter,
 } from "../helper";
 
 export const app = new Elysia({ strictPath: false })
@@ -18,7 +18,7 @@ export const app = new Elysia({ strictPath: false })
   })
 
   .all("/procedure/*", async (opts) => {
-    return await TRPCAdapter(opts.request);
+    return await RPCAdapter(opts.request);
   })
 
   .onError(({ code, set, request }) => {

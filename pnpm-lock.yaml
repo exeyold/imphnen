@@ -27,7 +27,7 @@ importers:
         specifier: 5.8.3
         version: 5.8.3
 
-  apps/api:
+  apps/rpc:
     dependencies:
       '@elysiajs/trpc':
         specifier: ^1.1.0

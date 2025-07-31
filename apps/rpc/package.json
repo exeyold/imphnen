@@ -1,5 +1,5 @@
 {
-  "name": "@backend/auth",
+  "name": "@apps/rpc",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

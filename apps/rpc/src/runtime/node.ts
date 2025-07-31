@@ -4,8 +4,8 @@ import {
   getAPIConfigs,
   getDefaultResponse,
   getNotFoundResponse,
+  RPCAdapter,
   startLog,
-  TRPCAdapter,
 } from "../helper";
 
 export const app = new Hono({ strict: true })
@@ -21,7 +21,7 @@ export const app = new Hono({ strict: true })
   })
 
   .all("/procedure/*", async (c) => {
-    return await TRPCAdapter(c.req.raw);
+    return await RPCAdapter(c.req.raw);
   })
 
   .notFound((c) => {
