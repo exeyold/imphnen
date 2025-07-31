@@ -30,7 +30,7 @@ Bun.serve({
     if (path.startsWith("/procedure/")) {
       try {
         return await RPCAdapter(request);
-      } catch (err: any) {
+      } catch (err) {
         console.error("❌ RPCAdapter threw error:", err);
         const body = getNotFoundResponse({ method: request.method, path });
         return new Response(JSON.stringify(body), {

@@ -20,7 +20,7 @@ export function getAPIConfigs() {
   return {
     API_NAME: "IMPHNEN API",
     API_VERSION: packageJSON.version,
-    PORT: 9000,
+    PORT: 9001,
   };
 }
 

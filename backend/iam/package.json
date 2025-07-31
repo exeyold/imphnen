@@ -1,0 +1,27 @@
+{
+  "name": "@backend/iam",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/runtime/node.ts",
+    "build": "cross-env NODE_ENV=production rimraf dist && bun run build:bytecode && bun run build:js",
+    "start": "cross-env NODE_ENV=production bun run dist/js/bun.js",
+    "build:bytecode": "bun build src/runtime/bun.ts --compile --minify --sourcemap --bytecode --outfile dist/compiled/bun",
+    "build:js": "bun build src/runtime/bun.ts --outdir dist/js --format esm --minify --sourcemap --target bun"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.17.1",
+    "@packages/auth": "workspace:*",
+    "@packages/utils": "workspace:*",
+    "@scalar/hono-api-reference": "^0.9.13",
+    "hono": "^4.8.10"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.19",
+    "@types/node": "^20.11.17",
+    "cross-env": "^10.0.0",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.7.1",
+    "typescript": "5.8.3"
+  }
+}
