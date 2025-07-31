@@ -1,4 +1,3 @@
-import { Elysia } from "elysia";
 import {
   getAPIConfigs,
   getDefaultResponse,
@@ -7,31 +6,50 @@ import {
   startLog,
 } from "../helper";
 
-export const app = new Elysia({ strictPath: false })
-  .get("/", getDefaultResponse())
+Bun.serve({
+  port: getAPIConfigs().PORT,
+  async fetch(request) {
+    const url = new URL(request.url);
+    const path = url.pathname;
 
-  .get("/procedure", ({ request }) => {
-    const method = request.method;
-    const path = request.url;
+    if (path === "/") {
+      return new Response(JSON.stringify(getDefaultResponse()), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-    return getNotFoundResponse({ method, path });
-  })
+    if (path === "/procedure") {
+      const body = getNotFoundResponse({ method: request.method, path });
+      return new Response(JSON.stringify(body), {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-  .all("/procedure/*", async (opts) => {
-    return await RPCAdapter(opts.request);
-  })
+    if (path.startsWith("/procedure/")) {
+      try {
+        return await RPCAdapter(request);
+      } catch (err: any) {
+        console.error("❌ RPCAdapter threw error:", err);
+        const body = getNotFoundResponse({ method: request.method, path });
+        return new Response(JSON.stringify(body), {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
 
-  .onError(({ code, set, request }) => {
-    if (code === "NOT_FOUND") {
-      set.status = 404;
-      return {
+    // Fallback for all other routes
+    return new Response(
+      JSON.stringify({
         error: "Endpoint not found",
         method: request.method,
-        path: request.url,
-      };
-    }
-  })
-
-  .listen(getAPIConfigs().PORT);
+        path,
+      }),
+      { status: 404, headers: { "Content-Type": "application/json" } }
+    );
+  },
+});
 
 startLog();
