@@ -2,11 +2,16 @@
   "name": "@packages/trpc",
   "type": "module",
   "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run"
+  },
   "dependencies": {
     "@packages/utils": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "^1.2.19",
-    "@types/node": "^20.11.17"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.11.17",
+    "vitest": "^3.2.4"
   }
 }

@@ -1,4 +1,5 @@
-import cookie, { type ParseOptions, type SerializeOptions } from "cookie";
+import * as cookie from "cookie";
+import { type ParseOptions, type SerializeOptions } from "cookie";
 
 /**
  * Parse all cookies from the incoming Request headers into an object.

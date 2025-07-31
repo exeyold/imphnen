@@ -1,7 +1,8 @@
-import { publicProcedure, router } from "@packages/utils/trpc";
+import { router } from "@packages/utils/trpc";
+import { exampleRouter } from "./routers/example/example.router";
 
 export const trpcRouter = router({
-  greeting: publicProcedure.query(() => "hello tRPC v10!"),
+  example: exampleRouter,
 });
 
 export type TrpcRouter = typeof trpcRouter;

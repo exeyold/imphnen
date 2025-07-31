@@ -5,7 +5,8 @@
     "dev": "cross-env dotenv -- turbo run dev --env-mode=loose",
     "build": "cross-env dotenv -- turbo run build --env-mode=loose",
     "start": "cross-env dotenv -- turbo run start --env-mode=loose",
-    "lint": "turbo run lint",
+    "lint": "cross-env dotenv -- turbo run lint --env-mode=loose",
+    "test": "cross-env dotenv -- turbo run test --env-mode=loose",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "check-deps": "sherif --fix"
