@@ -1,3 +1,4 @@
+import { env } from "@packages/env";
 import { trpcRouter } from "@packages/trpc";
 import { createTRPCContext } from "@packages/utils/trpc";
 import type { TRPCError } from "@trpc/server";
@@ -20,7 +21,7 @@ export function getAPIConfigs() {
   return {
     API_NAME: "IMPHNEN API",
     API_VERSION: packageJSON.version,
-    PORT: 9001,
+    PORT: env.RPC_PORT,
   };
 }
 

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.17.1",
+    "@packages/env": "workspace:*",
     "@packages/trpc": "workspace:*",
     "@packages/utils": "workspace:*",
     "@trpc/server": "^11.4.3",
