@@ -1,14 +1,13 @@
+import { env } from "@packages/env";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
-const AUTH_URL = String(process.env.AUTH_URL);
-
-const JWKS = createRemoteJWKSet(new URL(`${AUTH_URL}/api/auth/jwks`));
-
 export async function validateToken(token: string) {
+  const JWKS = createRemoteJWKSet(new URL(`${env.IAM_URL}/api/auth/jwks`));
+
   try {
     const { payload } = await jwtVerify(token, JWKS, {
-      issuer: AUTH_URL,
-      audience: AUTH_URL,
+      issuer: env.IAM_URL,
+      audience: env.IAM_URL,
     });
     return payload;
   } catch (error) {

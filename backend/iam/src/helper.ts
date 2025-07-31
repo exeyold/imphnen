@@ -1,4 +1,5 @@
 import { auth } from "@packages/auth";
+import { env } from "@packages/env";
 import packageJSON from "../package.json";
 
 export function getAPIConfigs() {
@@ -34,7 +35,7 @@ export async function getOpenAPISchema() {
 
   schema.servers = [
     {
-      url: process.env.AUTH_URL!,
+      url: env.IAM_URL,
     },
   ];
 

@@ -35,6 +35,9 @@ importers:
       '@packages/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@packages/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@packages/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -103,12 +106,12 @@ importers:
 
   packages/auth:
     dependencies:
+      '@packages/env':
+        specifier: workspace:*
+        version: link:../env
       better-auth:
         specifier: ^1.3.4
         version: 1.3.4
-      dotenv:
-        specifier: ^17.2.1
-        version: 17.2.1
       drizzle-orm:
         specifier: ^0.44.4
         version: 0.44.4(@types/pg@8.15.5)(bun-types@1.2.19(@types/react@19.1.9))(kysely@0.28.3)(pg@8.16.3)
@@ -131,6 +134,25 @@ importers:
       tsx:
         specifier: ^4.7.1
         version: 4.20.3
+
+  packages/env:
+    dependencies:
+      dotenv:
+        specifier: ^17.2.1
+        version: 17.2.1
+      envalid:
+        specifier: ^8.1.0
+        version: 8.1.0
+    devDependencies:
+      '@types/bun':
+        specifier: ^1.2.19
+        version: 1.2.19(@types/react@19.1.9)
+      '@types/jest':
+        specifier: ^30.0.0
+        version: 30.0.0
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.19.9
 
   packages/trpc:
     dependencies:
@@ -156,6 +178,9 @@ importers:
 
   packages/utils:
     dependencies:
+      '@packages/env':
+        specifier: workspace:*
+        version: link:../env
       '@trpc/server':
         specifier: ^11.4.3
         version: 11.4.3(typescript@5.8.3)
@@ -1008,6 +1033,10 @@ packages:
 
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+
+  envalid@8.1.0:
+    resolution: {integrity: sha512-OT6+qVhKVyCidaGoXflb2iK1tC8pd0OV2Q+v9n33wNhUJ+lus+rJobUj4vJaQBPxPZ0vYrPGuxdrenyCAIJcow==}
+    engines: {node: '>=18'}
 
   es-module-lexer@1.7.0:
     resolution: {integrity: sha512-jEQoCwk8hyb2AZziIOLhDqpm5+2ww5uIE6lkO/6jcOCusfk6LhMHpXXfBLXTZ7Ydyt0j4VoUQv6uGNYbdW+kBA==}
@@ -2183,6 +2212,10 @@ snapshots:
   emoji-regex@8.0.0: {}
 
   emoji-regex@9.2.2: {}
+
+  envalid@8.1.0:
+    dependencies:
+      tslib: 2.8.1
 
   es-module-lexer@1.7.0: {}
 
