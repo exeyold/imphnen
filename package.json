@@ -7,6 +7,9 @@
     "start": "cross-env dotenv -- turbo run start --env-mode=loose",
     "lint": "cross-env dotenv -- turbo run lint --env-mode=loose",
     "test": "cross-env dotenv -- turbo run test --env-mode=loose",
+    "db:migrate": "cross-env dotenv -- turbo run migrate --env-mode=loose",
+    "db:push": "cross-env dotenv -- turbo run push --env-mode=loose",
+    "db:studio": "cross-env dotenv -- turbo run studio --env-mode=loose",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "check-deps": "sherif --fix"
@@ -21,6 +24,6 @@
   },
   "packageManager": "pnpm@9.0.0",
   "engines": {
-    "node": ">=18"
+    "node": "22.17.1"
   }
 }
