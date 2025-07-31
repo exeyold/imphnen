@@ -3,18 +3,23 @@
   "type": "module",
   "exports": {
     "./cookies": "./src/cookies/index.ts",
+    "./iam": "./src/iam/index.ts",
     "./jwt": "./src/jwt/index.ts",
     "./trpc": "./src/trpc/index.ts"
   },
+  "scripts": {
+    "openapi": "openapi-typescript http:localhost:9000/docs/json -o ./src/openapi/types.gen.ts"
+  },
   "dependencies": {
-    "@packages/env": "workspace:*",
     "@trpc/server": "^11.4.3",
     "cookie": "^1.0.2",
     "jose": "^6.0.12",
+    "openapi-fetch": "^0.14.0",
     "superjson": "^2.2.2"
   },
   "devDependencies": {
     "@types/bun": "^1.2.19",
-    "@types/node": "^20.11.17"
+    "@types/node": "^20.11.17",
+    "openapi-typescript": "^7.8.0"
   }
 }

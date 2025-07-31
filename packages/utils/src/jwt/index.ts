@@ -1,7 +1,7 @@
-import { env } from "@packages/env";
 import { createRemoteJWKSet, jwtVerify } from "jose";
+import { iamFetcher } from "../iam";
 
-const JWKS = createRemoteJWKSet(new URL(`${env.IAM_URL}/jwks`));
+const JWKS = createRemoteJWKSet(new URL(`${process.env.IAM_URL}/jwks`));
 
 /**
  * Validates a JWT using a remote JWKS endpoint.
@@ -16,18 +16,14 @@ const JWKS = createRemoteJWKSet(new URL(`${env.IAM_URL}/jwks`));
 export async function validateToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, JWKS, {
-      issuer: env.IAM_URL,
-      audience: env.IAM_URL,
+      issuer: process.env.IAM_URL,
+      audience: process.env.IAM_URL,
     });
     return payload;
   } catch (error) {
     console.error("Token validation failed:", error);
     throw error;
   }
-}
-
-interface TokenResponse {
-  token: string;
 }
 
 /**
@@ -40,16 +36,13 @@ interface TokenResponse {
  * @throws {Error} - Throws if the fetch operation or JSON parsing fails.
  */
 export async function getJWT(token: string) {
-  const res = await fetch("http://localhost:9000/token", {
+  const { data, error } = await iamFetcher.GET("/token", {
     headers: {
       Cookie: `_imphnen_token_=${token}`,
     },
   });
 
-  if (!res.ok) {
-    throw new Error(`Failed to fetch token: ${res.status} ${res.statusText}`);
-  }
+  if (error) throw error;
 
-  const json = (await res.json()) as TokenResponse;
-  return json.token;
+  return data.token;
 }
