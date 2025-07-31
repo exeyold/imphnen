@@ -6,7 +6,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@packages/utils": "workspace:*"
+    "@packages/utils": "workspace:*",
+    "@trpc/server": "^11.4.3"
   },
   "devDependencies": {
     "@types/bun": "^1.2.19",

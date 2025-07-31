@@ -72,7 +72,7 @@ export async function getOpenAPISchema() {
 
 export function startLog() {
   console.log(
-    `Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
+    `IAM Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
   );
 }
 

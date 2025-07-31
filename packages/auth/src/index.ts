@@ -20,10 +20,20 @@ export const auth = betterAuth({
   plugins: [
     admin(),
     username(),
-    jwt(),
     haveIBeenPwned(),
     openAPI({
       disableDefaultReference: true,
+    }),
+    jwt({
+      jwt: {
+        expirationTime: "5m",
+        definePayload: ({ user }) => {
+          return {
+            id: user.id,
+            email: user.email,
+          };
+        },
+      },
     }),
   ],
   emailAndPassword: {

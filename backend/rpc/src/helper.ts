@@ -43,7 +43,7 @@ export function getNotFoundResponse({
 
 export function startLog() {
   console.log(
-    `Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
+    `RPC Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
   );
 }
 
