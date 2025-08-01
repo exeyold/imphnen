@@ -7,8 +7,8 @@
     "envalid": "^8.1.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.19",
+    "@types/bun": "latest",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20.11.17"
+    "@types/node": "latest"
   }
 }

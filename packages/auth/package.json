@@ -16,8 +16,8 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.19",
-    "@types/node": "^20.11.17",
+    "@types/bun": "latest",
+    "@types/node": "latest",
     "@types/pg": "^8.15.5",
     "drizzle-kit": "^0.31.4",
     "tsx": "^4.7.1"

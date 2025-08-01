@@ -18,8 +18,8 @@
     "superjson": "^2.2.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.19",
-    "@types/node": "^20.11.17",
+    "@types/bun": "latest",
+    "@types/node": "latest",
     "openapi-typescript": "^7.8.0"
   }
 }
