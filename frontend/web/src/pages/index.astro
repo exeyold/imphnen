@@ -1,9 +1,15 @@
 ---
-import RootLayout from "../layouts/root-layout.astro";
+import HomeCTAPortfolio from "../components/organisms/home-cta-portfolio-section.astro";
+import HomeHeroSection from "../components/organisms/home-hero-section.astro";
+import HomeSocialsSection from "../components/organisms/home-socials-section.astro";
+import ContentWrapper from "../components/templates/content-wrapper.astro";
+import RootLayout from "../components/templates/root-layout.astro";
 ---
 
 <RootLayout>
-  <div class="flex h-screen items-center justify-center">
-    <button class="btn btn-primary">Button</button>
-  </div>
+  <ContentWrapper>
+    <HomeHeroSection />
+    <HomeSocialsSection />
+    <HomeCTAPortfolio />
+  </ContentWrapper>
 </RootLayout>

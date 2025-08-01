@@ -10,12 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/node": "^9.3.2",
-    "astro": "5.12.6",
-    "daisyui": "^5.0.50"
+    "astro": "5.12.6"
   },
   "devDependencies": {
+    "@astrojs/node": "^9.3.2",
+    "@fontsource-variable/rubik": "^5.2.6",
+    "@fontsource/poppins": "^5.2.6",
+    "@fontsource/rubik-doodle-shadow": "^5.2.6",
+    "@packages/utils": "workspace:*",
     "@tailwindcss/vite": "^4.1.11",
+    "daisyui": "^5.0.50",
     "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.14",

@@ -1,0 +1,45 @@
+---
+import { cn } from "@packages/utils/tailwind";
+
+const { pathname } = Astro.url;
+const currentPath = pathname.match(/^\/$/) ? "/" : pathname.replace(/\/$/, "");
+
+const APP_URL = process.env.APP_URL!;
+---
+
+<header class="hidden h-20 p-6 sm:block">
+  <nav class="mx-auto flex max-w-[90rem] items-center justify-between">
+    <ul class="flex gap-x-4">
+      <li>
+        <a
+          href="/"
+          class={cn(
+            "text-2xl",
+            currentPath === "/" && "font-bold",
+            currentPath === "/events" && "text-white"
+          )}
+        >
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="/events"
+          class={cn(
+            "text-2xl",
+            currentPath === "/events" && "font-bold text-white"
+          )}
+        >
+          Events
+        </a>
+      </li>
+    </ul>
+    <a
+      href={APP_URL ?? "/"}
+      class={cn("btn btn-xl", currentPath !== "/events" && "btn-primary")}
+    >
+      Open App
+    </a>
+  </nav>
+</header>
