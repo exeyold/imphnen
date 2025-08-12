@@ -1,0 +1,29 @@
+---
+// StrokeText.astro
+import { cn } from "@packages/utils/tailwind";
+
+const { text, className, strokeColor, strokeWidth, fillColor } = Astro.props;
+---
+
+<div class={cn("relative inline-block", className)}>
+  <span
+    class={cn("absolute inset-0 font-black")}
+    style={`
+      color: transparent;
+      -webkit-text-stroke: ${strokeWidth}px ${strokeColor};
+      font-size: inherit;
+    `}
+  >
+    {text}
+  </span>
+
+  <span
+    class={cn("relative font-black")}
+    style={`
+      color: ${fillColor};
+      font-size: inherit;
+    `}
+  >
+    {text}
+  </span>
+</div>
