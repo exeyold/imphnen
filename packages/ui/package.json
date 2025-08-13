@@ -1,0 +1,22 @@
+{
+  "name": "@packages/ui",
+  "type": "module",
+  "exports": {
+    "./button": "./src/components/ui/button.tsx"
+  },
+  "dependencies": {
+    "@packages/utils": "workspace:*",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "latest",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "tailwindcss": "^4.1.11",
+    "tw-animate-css": "^1.3.6"
+  }
+}

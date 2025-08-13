@@ -1,4 +1,5 @@
 import { Scalar } from "@scalar/hono-api-reference";
+import { logger } from "hono/logger";
 import { Hono } from "hono/tiny";
 import {
   forwardToAuth,
@@ -19,6 +20,8 @@ export const app = new Hono({ strict: true })
   })
 
   .get("/docs", Scalar({ url: "/docs/json" }))
+
+  .use(logger())
 
   .all("/*", (c) => forwardToAuth(c.req.raw))
 

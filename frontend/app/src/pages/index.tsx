@@ -1,3 +1,5 @@
+import { buttonVariants } from "@packages/ui/button";
+import { href, Link } from "react-router";
 import type { Route } from "./+types";
 
 export function meta({}: Route.MetaArgs) {
@@ -6,6 +8,13 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <h1 className="text-4xl flex justify-center items-center h-screen">/</h1>
+    <div className="flex gap-4 flex-col justify-center items-center h-screen">
+      <Link to={href("/home")} className={buttonVariants()}>
+        Go to Home
+      </Link>
+      <Link to={href("/signup")} className={buttonVariants()}>
+        Signup
+      </Link>
+    </div>
   );
 }
