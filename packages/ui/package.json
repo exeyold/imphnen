@@ -2,20 +2,27 @@
   "name": "@packages/ui",
   "type": "module",
   "exports": {
-    "./button": "./src/components/ui/button.tsx"
+    "./button": "./src/components/ui/button.tsx",
+    "./lanyard": "./src/components/ui/lanyard.tsx"
   },
   "dependencies": {
     "@packages/utils": "workspace:*",
     "@radix-ui/react-slot": "^1.2.3",
+    "@react-three/drei": "^10.6.1",
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/rapier": "^2.1.0",
     "class-variance-authority": "^0.7.1",
+    "meshline": "^3.3.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "three": "^0.179.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "latest",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "@types/three": "^0.179.0",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.6"
   }
