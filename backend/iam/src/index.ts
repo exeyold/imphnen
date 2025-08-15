@@ -1,3 +1,4 @@
+import { getOpenAPISchema } from "@packages/auth";
 import { Scalar } from "@scalar/hono-api-reference";
 import { logger } from "hono/logger";
 import { Hono } from "hono/tiny";
@@ -5,7 +6,6 @@ import {
   forwardToAuth,
   getDefaultResponse,
   getNotFoundResponse,
-  getOpenAPISchema,
 } from "./helper";
 
 export const app = new Hono({ strict: true })

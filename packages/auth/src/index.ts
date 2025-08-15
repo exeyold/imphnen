@@ -10,6 +10,11 @@ import {
 } from "better-auth/plugins";
 import { db } from "./db";
 import * as schema from "./db/schema";
+import { getBasicOpenAPISchema } from "./helper";
+import {
+  injectUserSearchPluginOpenAPISpec,
+  usernameExtendedSearch,
+} from "./plugins/username-extend-search";
 
 export const auth = betterAuth({
   baseURL: env.IAM_URL,
@@ -22,11 +27,12 @@ export const auth = betterAuth({
 
   plugins: [
     admin(),
+
     username(),
+    usernameExtendedSearch(),
+
     haveIBeenPwned(),
-    openAPI({
-      disableDefaultReference: true,
-    }),
+
     jwt({
       jwt: {
         expirationTime: "5m",
@@ -37,6 +43,10 @@ export const auth = betterAuth({
           };
         },
       },
+    }),
+
+    openAPI({
+      disableDefaultReference: true,
     }),
   ],
 
@@ -55,3 +65,11 @@ export const auth = betterAuth({
     },
   },
 });
+
+export async function getOpenAPISchema() {
+  const schema = await getBasicOpenAPISchema();
+
+  injectUserSearchPluginOpenAPISpec(schema);
+
+  return schema;
+}

@@ -82,50 +82,6 @@ export function getInternalServerErrorResponse({
   };
 }
 
-export async function getOpenAPISchema() {
-  const schema = await auth.api.generateOpenAPISchema();
-
-  schema.info.title = "IMPHNEN IAM Docs";
-  schema.info.description = "API Reference for IMPHNEN IAM";
-
-  schema.servers = [
-    {
-      url: env.IAM_URL,
-    },
-  ];
-
-  schema.tags = [
-    {
-      name: "Authentication",
-      description: "Endpoints for user authentication operations.",
-    },
-    {
-      name: "Admin",
-      description: "Admin specific operations.",
-    },
-    {
-      name: "Username",
-      description: "Username related operations.",
-    },
-    {
-      name: "Jwt",
-      description: "JWT handling and verification operations.",
-    },
-  ];
-
-  for (const path of Object.values(schema.paths)) {
-    for (const method of Object.values(path)) {
-      if (method.tags) {
-        method.tags = method.tags.map((tag: string) =>
-          tag === "Default" ? "Authentication" : tag
-        );
-      }
-    }
-  }
-
-  return schema;
-}
-
 export function startLog() {
   console.log(
     `IAM Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`

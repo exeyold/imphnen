@@ -11,7 +11,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   try {
     const data = await getSession(request);
     if (!data) throw redirect(href("/signin"));
-    console.log("TRIGGERED");
     return { data };
   } catch {
     throw redirect(href("/signin"));
