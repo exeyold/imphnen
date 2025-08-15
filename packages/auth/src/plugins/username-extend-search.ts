@@ -1,3 +1,4 @@
+import { env } from "@packages/env";
 import type { BetterAuthPlugin } from "better-auth";
 import { createAuthEndpoint } from "better-auth/api";
 import { eq } from "drizzle-orm";
@@ -17,6 +18,20 @@ export const usernameExtendedSearch = (): BetterAuthPlugin => {
         "/check/:username",
         { method: "GET" },
         async (ctx) => {
+          const apiKey = ctx.headers?.get("x-api-key");
+
+          if (!apiKey) {
+            return new Response(JSON.stringify({ message: "Unauthorized" }), {
+              status: 401,
+            });
+          }
+
+          if (apiKey !== env.AUTH_API_KEY) {
+            return new Response(JSON.stringify({ message: "Unauthorized" }), {
+              status: 401,
+            });
+          }
+
           const { username } = ctx.params;
           const now = Date.now();
 
@@ -37,7 +52,9 @@ export const usernameExtendedSearch = (): BetterAuthPlugin => {
             .limit(1);
 
           if (!user) {
-            return ctx.json({ message: "User not found" }, { status: 404 });
+            return new Response(JSON.stringify({ message: "User not found" }), {
+              status: 404,
+            });
           }
 
           // Store in cache
@@ -81,8 +98,15 @@ export function injectUserSearchPluginOpenAPISpec(schema: OpenAPISchema) {
     {
       name: "username",
       in: "path",
-      required: true, // <-- explicitly required
+      required: true, // explicitly required
       schema: { type: "string" },
+    },
+    {
+      name: "x-api-key",
+      in: "header",
+      required: true, // header is required
+      schema: { type: "string" },
+      description: "API key for authentication",
     },
   ];
 

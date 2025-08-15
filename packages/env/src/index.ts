@@ -5,6 +5,8 @@ import "dotenv/config";
 export const env = cleanEnv(process.env, {
   AUTH_DB_URL: str(),
   AUTH_SECRET: str(),
+  AUTH_API_KEY: str(),
+
   TURNSTILE_SECRET_KEY: str(),
 
   IAM_URL: str({ devDefault: "http://localhost:9000" }),

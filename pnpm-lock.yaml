@@ -109,6 +109,9 @@ importers:
 
   frontend/app:
     dependencies:
+      '@packages/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       '@packages/ui':
         specifier: workspace:*
         version: link:../../packages/ui

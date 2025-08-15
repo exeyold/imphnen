@@ -1,3 +1,4 @@
+import { env } from "@packages/env";
 import { iamFetcher } from "@packages/utils/iam";
 import type { LoaderFunctionArgs, MetaArgs } from "react-router";
 import { useLoaderData } from "react-router";
@@ -5,7 +6,10 @@ import { useLoaderData } from "react-router";
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const { data, error } = await iamFetcher.GET("/check/{username}", {
-      params: { path: { username: String(params.username) } },
+      params: {
+        path: { username: String(params.username) },
+        header: { "x-api-key": env.AUTH_API_KEY },
+      },
     });
 
     if (error) return { name: "Unknown User" };

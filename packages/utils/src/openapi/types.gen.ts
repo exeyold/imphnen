@@ -3786,7 +3786,10 @@ export interface paths {
         get: {
             parameters: {
                 query?: never;
-                header?: never;
+                header: {
+                    /** @description API key for authentication */
+                    "x-api-key": string;
+                };
                 path: {
                     username: string;
                 };
