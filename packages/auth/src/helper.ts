@@ -11,7 +11,7 @@ export async function getBasicOpenAPISchema() {
   // Update servers
   schema.servers = [
     {
-      url: env.IAM_URL,
+      url: env.NEXT_PUBLIC_IAM_URL,
     },
   ];
 

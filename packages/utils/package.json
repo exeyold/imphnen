@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "@types/node": "latest",
     "openapi-typescript": "^7.8.0"
   }

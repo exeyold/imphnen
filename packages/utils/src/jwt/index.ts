@@ -1,7 +1,9 @@
 import { createRemoteJWKSet, jwtVerify } from "jose";
 import { iamFetcher } from "../iam";
 
-const JWKS = createRemoteJWKSet(new URL(`${process.env.IAM_URL}/jwks`));
+const JWKS = createRemoteJWKSet(
+  new URL(`${process.env.NEXT_PUBLIC_IAM_URL}/jwks`)
+);
 
 /**
  * Validates a JWT using a remote JWKS endpoint.
@@ -16,8 +18,8 @@ const JWKS = createRemoteJWKSet(new URL(`${process.env.IAM_URL}/jwks`));
 export async function validateToken(token: string) {
   try {
     const { payload } = await jwtVerify(token, JWKS, {
-      issuer: process.env.IAM_URL,
-      audience: process.env.IAM_URL,
+      issuer: process.env.NEXT_PUBLIC_IAM_URL,
+      audience: process.env.NEXT_PUBLIC_IAM_URL,
     });
     return payload;
   } catch (error) {

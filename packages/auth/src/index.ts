@@ -17,7 +17,7 @@ import {
 } from "./plugins/username-extend-search";
 
 export const auth = betterAuth({
-  baseURL: env.IAM_URL,
+  baseURL: env.NEXT_PUBLIC_IAM_URL,
 
   database: drizzleAdapter(db, {
     provider: "pg",
