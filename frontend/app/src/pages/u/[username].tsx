@@ -1,7 +1,6 @@
 import { env } from "@packages/env";
 import { iamFetcher } from "@packages/utils/iam";
 import type { LoaderFunctionArgs, MetaArgs } from "react-router";
-import { useLoaderData } from "react-router";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
@@ -25,6 +24,5 @@ export function meta({ data }: MetaArgs<typeof loader>) {
 }
 
 export default function DynamicUserPage() {
-  const { name } = useLoaderData<typeof loader>();
-  return <div>Hello, {name}!</div>;
+  return <div></div>;
 }

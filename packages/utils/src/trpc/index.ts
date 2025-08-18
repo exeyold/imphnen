@@ -1,6 +1,6 @@
 import { initTRPC } from "@trpc/server";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
-import superjson from "superjson";
+import superJSON from "superjson";
 import type { SerializeOptions } from "../cookies";
 import { deleteCookie, parseCookies, setCookie } from "../cookies";
 
@@ -40,7 +40,7 @@ export function createTRPCContext({
  * Used to define and organize tRPC routers.
  */
 const t = initTRPC.context<ReturnType<typeof createTRPCContext>>().create({
-  transformer: superjson,
+  transformer: superJSON,
 });
 
 /**

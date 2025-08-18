@@ -14,7 +14,7 @@
     "@packages/env": "workspace:*",
     "@packages/trpc": "workspace:*",
     "@packages/utils": "workspace:*",
-    "@trpc/server": "^11.4.3",
+    "@trpc/server": "^11.4.4",
     "hono": "^4.8.10"
   },
   "devDependencies": {

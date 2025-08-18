@@ -12,7 +12,7 @@
     "openapi": "openapi-typescript http:localhost:9000/docs/json -o ./src/openapi/types.gen.ts"
   },
   "dependencies": {
-    "@trpc/server": "^11.4.3",
+    "@trpc/server": "^11.4.4",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
     "jose": "^6.0.12",
