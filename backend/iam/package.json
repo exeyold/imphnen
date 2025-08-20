@@ -13,8 +13,7 @@
     "@hono/node-server": "^1.17.1",
     "@packages/auth": "workspace:*",
     "@packages/env": "workspace:*",
-    "@packages/utils": "workspace:*",
-    "@scalar/hono-api-reference": "^0.9.13",
+    "@packages/server": "workspace:*",
     "hono": "^4.8.10"
   },
   "devDependencies": {

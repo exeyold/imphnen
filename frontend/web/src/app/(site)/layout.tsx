@@ -1,8 +1,8 @@
+import { getQueryClient } from "@packages/client/query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { headers } from "next/headers";
 import { getSessionQueryOptions } from "~/features/auth/hooks/use-get-session";
 import { fetchSession } from "~/features/auth/http/fetch-session";
-import { getQueryClient } from "~/lib/query";
 
 export default async function Layout({
   children,

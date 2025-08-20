@@ -12,8 +12,8 @@
   },
   "aliases": {
     "components": "~/components",
-    "utils": "@packages/utils/tailwind",
-    "lib": "@packages/utils/tailwind",
+    "utils": "@packages/client/tailwind",
+    "lib": "@packages/client/tailwind",
     "ui": "~/components/ui",
     "hooks": "~/hooks"
   }

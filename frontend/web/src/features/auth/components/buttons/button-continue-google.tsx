@@ -1,7 +1,7 @@
 "use client";
 
+import { authClient } from "@packages/client/auth";
 import { Button } from "@packages/ui/button";
-import { authClient } from "@packages/utils/auth";
 import { useMutation } from "@tanstack/react-query";
 
 export function ButtonContinueGoogle() {

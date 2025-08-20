@@ -1,5 +1,5 @@
+import { TanstackQueryProvider } from "@packages/client/query";
 import type { Metadata } from "next";
-import { TanstackQueryProvider } from "~/lib/query";
 
 import "~/styles/globals.css";
 

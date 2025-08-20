@@ -1,7 +1,11 @@
 import { env } from "@packages/env";
+import {
+  getInternalServerErrorResponse,
+  getNotFoundResponse,
+} from "@packages/server/utils";
+import { forwardToRPC } from "@packages/trpc";
 import { cors } from "hono/cors";
 import { Hono } from "hono/tiny";
-import { forwardToRPC, getNotFoundResponse } from "./helper";
 
 export const app = new Hono({ strict: true })
   .use(cors({ origin: [env.NEXT_PUBLIC_WEB_URL], credentials: true }))
@@ -19,4 +23,11 @@ export const app = new Hono({ strict: true })
     const path = c.req.url;
 
     return c.json(getNotFoundResponse({ method, path }), 404);
+  })
+
+  .onError((_, c) => {
+    const method = c.req.raw?.method ?? c.req.method;
+    const path = c.req.url;
+
+    return c.json(getInternalServerErrorResponse({ method, path }), 500);
   });

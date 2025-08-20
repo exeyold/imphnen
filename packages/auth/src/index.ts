@@ -1,4 +1,8 @@
 import { env } from "@packages/env";
+import {
+  getInternalServerErrorResponse,
+  getNotFoundResponse,
+} from "@packages/server/utils";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { admin, haveIBeenPwned, jwt, username } from "better-auth/plugins";
@@ -58,6 +62,47 @@ export const auth = betterAuth({
     },
   },
 });
+
+export async function forwardToAuth(request: Request): Promise<Response> {
+  const url = new URL(request.url);
+  url.pathname = `/api/auth${url.pathname}`;
+
+  // Preserve method, headers, body, etc.
+  const proxyReq = new Request(url.toString(), request);
+  const response = await auth.handler(proxyReq);
+
+  if (response.status === 404) {
+    return new Response(
+      JSON.stringify(
+        getNotFoundResponse({
+          method: request.method,
+          path: request.url,
+        })
+      ),
+      {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  if (response.status >= 500) {
+    return new Response(
+      JSON.stringify(
+        getInternalServerErrorResponse({
+          method: request.method,
+          path: request.url,
+        })
+      ),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  return response;
+}
 
 function getDomain(): string {
   const { isDevelopment, NEXT_PUBLIC_WEB_URL } = env;

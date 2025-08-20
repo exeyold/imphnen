@@ -1,6 +1,6 @@
 import { env } from "@packages/env";
+import { startLog } from "@packages/server/utils";
 import { app } from "..";
-import { startLog } from "../helper";
 
 Bun.serve({ port: env.RPC_PORT, fetch: app.fetch });
 

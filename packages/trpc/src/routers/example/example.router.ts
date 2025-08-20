@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "@packages/utils/trpc";
+import { publicProcedure, router } from "@packages/server/trpc";
 
 export const exampleRouter = router({
   get: publicProcedure.query(async () => {

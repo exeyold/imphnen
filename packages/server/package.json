@@ -1,0 +1,22 @@
+{
+  "name": "@packages/server",
+  "type": "module",
+  "exports": {
+    "./cookies": "./src/cookies/index.ts",
+    "./jwt": "./src/jwt/index.ts",
+    "./trpc": "./src/trpc/index.ts",
+    "./utils": "./src/utils/index.ts"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.4.4",
+    "cookie": "^1.0.2",
+    "jose": "^6.0.12",
+    "superjson": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "latest",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2"
+  }
+}
