@@ -1,14 +1,13 @@
+import { env } from "@packages/env";
+import { cors } from "hono/cors";
 import { Hono } from "hono/tiny";
-import {
-  forwardToRPC,
-  getDefaultResponse,
-  getNotFoundResponse,
-} from "./helper";
+import { forwardToRPC, getNotFoundResponse } from "./helper";
 
 export const app = new Hono({ strict: true })
+  .use(cors({ origin: [env.NEXT_PUBLIC_WEB_URL], credentials: true }))
 
   .get("/", (c) => {
-    return c.json(getDefaultResponse());
+    return c.redirect(env.NEXT_PUBLIC_WEB_URL);
   })
 
   .all("/*", async (c) => {

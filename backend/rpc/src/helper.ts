@@ -3,15 +3,6 @@ import { trpcRouter } from "@packages/trpc";
 import { createTRPCContext } from "@packages/utils/trpc";
 import type { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import packageJSON from "../package.json";
-
-export function getAPIConfigs() {
-  return {
-    API_NAME: "IMPHNEN API",
-    API_VERSION: packageJSON.version,
-    PORT: env.RPC_PORT,
-  };
-}
 
 export async function forwardToRPC(request: Request) {
   return await fetchRequestHandler({
@@ -23,13 +14,6 @@ export async function forwardToRPC(request: Request) {
       logTRPCError(error);
     },
   });
-}
-
-export function getDefaultResponse() {
-  return {
-    name: getAPIConfigs().API_NAME,
-    version: getAPIConfigs().API_VERSION,
-  };
 }
 
 export function getNotFoundResponse({
@@ -58,7 +42,7 @@ export function getInternalServerErrorResponse({
 
 export function startLog() {
   console.log(
-    `RPC Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
+    `RPC Server is running on (${detectRuntime()}): http://localhost:${env.RPC_PORT}`
   );
 }
 

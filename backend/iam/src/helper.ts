@@ -1,14 +1,5 @@
 import { auth } from "@packages/auth";
 import { env } from "@packages/env";
-import packageJSON from "../package.json";
-
-export function getAPIConfigs() {
-  return {
-    API_NAME: "IMPHNEN API",
-    API_VERSION: packageJSON.version,
-    PORT: env.IAM_PORT,
-  };
-}
 
 export async function forwardToAuth(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -51,13 +42,6 @@ export async function forwardToAuth(request: Request): Promise<Response> {
   return response;
 }
 
-export function getDefaultResponse() {
-  return {
-    name: getAPIConfigs().API_NAME,
-    version: getAPIConfigs().API_VERSION,
-  };
-}
-
 export function getNotFoundResponse({
   method,
   path,
@@ -84,7 +68,7 @@ export function getInternalServerErrorResponse({
 
 export function startLog() {
   console.log(
-    `IAM Server is running on (${detectRuntime()}): http://localhost:${getAPIConfigs().PORT}`
+    `IAM Server is running on (${detectRuntime()}): http://localhost:${env.IAM_PORT}`
   );
 }
 

@@ -1,9 +1,7 @@
+import { env } from "@packages/env";
 import { app } from "..";
-import { getAPIConfigs, startLog } from "../helper";
+import { startLog } from "../helper";
 
-Bun.serve({
-  port: getAPIConfigs().PORT,
-  fetch: app.fetch,
-});
+Bun.serve({ port: env.IAM_PORT, fetch: app.fetch });
 
 startLog();

@@ -1,32 +1,15 @@
-import { getOpenAPISchema } from "@packages/auth";
-import { Scalar } from "@scalar/hono-api-reference";
+import { env } from "@packages/env";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { Hono } from "hono/tiny";
-import {
-  forwardToAuth,
-  getDefaultResponse,
-  getNotFoundResponse,
-} from "./helper";
+import { forwardToAuth, getNotFoundResponse } from "./helper";
 
 export const app = new Hono({ strict: true })
-  .use(
-    cors({
-      origin: [String(process.env.NEXT_PUBLIC_WEB_URL)],
-      credentials: true,
-    })
-  )
+  .use(cors({ origin: [env.NEXT_PUBLIC_WEB_URL], credentials: true }))
 
   .get("/", (c) => {
-    return c.json(getDefaultResponse());
+    return c.redirect(env.NEXT_PUBLIC_WEB_URL);
   })
-
-  .get("/docs/json", async (c) => {
-    const schema = await getOpenAPISchema();
-    return c.json(schema);
-  })
-
-  .get("/docs", Scalar({ url: "/docs/json" }))
 
   .use(logger())
 
