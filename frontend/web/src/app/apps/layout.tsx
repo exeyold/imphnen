@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "nextjs-toploader/app";
 import { useEffect } from "react";
-import { LuLoader } from "react-icons/lu";
+import { LuLoaderCircle } from "react-icons/lu";
 import { useGetSession } from "~/features/auth/hooks/use-get-session";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   if (isSessionLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <LuLoader className="w-10 h-10 animate-spin" />
+        <LuLoaderCircle className="w-10 h-10 animate-spin" />
       </div>
     );
   }

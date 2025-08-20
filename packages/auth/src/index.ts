@@ -52,10 +52,11 @@ export const auth = betterAuth({
         id: user.id,
         name: user.name,
         username: user.username,
-        displayUsername: user.displayUsername,
         email: user.email,
+        image: user.image,
         emailVerified: user.emailVerified,
         role: user.role,
+        displayUsername: user.displayUsername,
         sessionExpires: session.expiresAt,
       };
     }, options),
