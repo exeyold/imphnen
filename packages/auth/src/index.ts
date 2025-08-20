@@ -5,9 +5,34 @@ import {
 } from "@packages/server/utils";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { admin, haveIBeenPwned, jwt, username } from "better-auth/plugins";
+import {
+  admin,
+  customSession,
+  haveIBeenPwned,
+  jwt,
+  username,
+} from "better-auth/plugins";
 import { db } from "./db";
 import * as schema from "./db/schema";
+
+const options = {
+  plugins: [
+    username(),
+    admin(),
+    haveIBeenPwned(),
+    jwt({
+      jwt: {
+        expirationTime: "5m",
+        definePayload: ({ user }) => {
+          return {
+            id: user.id,
+            email: user.email,
+          };
+        },
+      },
+    }),
+  ],
+};
 
 export const auth = betterAuth({
   baseURL: env.NEXT_PUBLIC_WEB_URL,
@@ -21,20 +46,19 @@ export const auth = betterAuth({
   }),
 
   plugins: [
-    admin(),
-    username(),
-    haveIBeenPwned(),
-    jwt({
-      jwt: {
-        expirationTime: "5m",
-        definePayload: ({ user }) => {
-          return {
-            id: user.id,
-            email: user.email,
-          };
-        },
-      },
-    }),
+    ...(options.plugins ?? []),
+    customSession(async ({ user, session }, _) => {
+      return {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        displayUsername: user.displayUsername,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        role: user.role,
+        sessionExpires: session.expiresAt,
+      };
+    }, options),
   ],
 
   emailAndPassword: {

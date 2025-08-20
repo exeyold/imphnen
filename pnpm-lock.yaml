@@ -217,6 +217,9 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
     devDependencies:
+      '@packages/auth':
+        specifier: workspace:*
+        version: link:../auth
       '@packages/trpc':
         specifier: workspace:*
         version: link:../trpc
