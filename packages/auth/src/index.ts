@@ -51,6 +51,13 @@ export const auth = betterAuth({
     max: 100,
   },
 
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5,
+    },
+  },
+
   plugins: [
     ...(options.plugins ?? []),
     customSession(async ({ user, session }, _) => {
@@ -89,6 +96,9 @@ export const auth = betterAuth({
     cookies: {
       session_token: {
         name: "_imphnen_token_",
+      },
+      session_data: {
+        name: "_imphnen_session_",
       },
     },
   },

@@ -55,7 +55,7 @@ function StepForm({ step }: { step: number }) {
   if (step === 0) {
     return (
       <div className="flex flex-col gap-y-5">
-        <h1 className="text-3xl font-bold text-center mb-2">Profile Setup</h1>
+        <h1 className="text-3xl font-bold text-center mb-2">Portfolio Setup</h1>
 
         {/* Display Name */}
         <div className="flex flex-col gap-y-2">

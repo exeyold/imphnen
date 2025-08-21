@@ -13,7 +13,7 @@ import { LogoSimple } from "../logo";
 import { ThemeSlider } from "../theme-slider";
 
 export function Navbar() {
-  const { data } = useGetSession();
+  const { data: session, isLoading } = useGetSession();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -34,14 +34,41 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [mobileProfileOpen]);
 
+  const SkeletonAvatar = () => (
+    <div className="w-10 h-10 rounded-2xl bg-gray-300 animate-pulse" />
+  );
+
   return (
     <>
       {/* Desktop Navbar */}
       <header className="sticky top-0 w-full z-50 bg-background/70 border-b hidden md:block">
         <div className="max-w-7xl mx-auto flex h-20 items-center justify-between px-4">
-          <LogoLink />
-          <DesktopNav />
-          <DesktopButtons />
+          {/* Group Logo + Navigation */}
+          <div className="flex items-center gap-6">
+            <LogoLink />
+            <DesktopNav />
+          </div>
+
+          {/* Right side buttons */}
+          {isLoading ? (
+            <SkeletonAvatar />
+          ) : session ? (
+            <DesktopButtons />
+          ) : (
+            <div className="flex gap-2">
+              <Button size="sm" onClick={() => router.push("/signin")}>
+                Signin
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => router.push("/signup")}
+              >
+                Signup
+              </Button>
+              <ThemeSlider />
+            </div>
+          )}
         </div>
       </header>
 
@@ -50,17 +77,24 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4">
           <LogoLink />
           <div ref={mobileMenuRef} className="flex items-center gap-2 relative">
-            {data ? (
-              <button onClick={() => setMobileProfileOpen(!mobileProfileOpen)}>
-                <Image
-                  src={data.image || "/default-avatar.png"}
-                  alt="Profile"
-                  width={40}
-                  height={40}
-                  className="rounded-2xl"
-                  unoptimized
-                />
-              </button>
+            {isLoading ? (
+              <SkeletonAvatar />
+            ) : session ? (
+              <>
+                <ThemeSlider />
+                <button
+                  onClick={() => setMobileProfileOpen(!mobileProfileOpen)}
+                >
+                  <Image
+                    src={session.image || "/default-avatar.png"}
+                    alt="Profile"
+                    width={40}
+                    height={40}
+                    className="rounded-2xl"
+                    unoptimized
+                  />
+                </button>
+              </>
             ) : (
               <>
                 <Button size="sm" onClick={() => router.push("/signin")}>
@@ -73,15 +107,18 @@ export function Navbar() {
                 >
                   Signup
                 </Button>
+                <ThemeSlider />
               </>
             )}
 
             {/* Mobile Profile Popup */}
-            {mobileProfileOpen && data && (
+            {mobileProfileOpen && session && (
               <div className="absolute top-14 right-0 w-48 bg-background/20 border shadow-lg rounded-xl py-2 px-2 z-50">
                 <button
                   onClick={() => {
-                    router.push(`/u/${data.username}`);
+                    router.push(
+                      session.username ? `/u/${session.username}` : "/setup"
+                    );
                     setMobileProfileOpen(false);
                   }}
                   className="flex items-center gap-2 px-4 py-2 rounded hover:bg-primary hover:text-background w-full text-left"
@@ -110,7 +147,7 @@ export function Navbar() {
       </header>
 
       {/* Mobile Bottom Navbar */}
-      <footer className="fixed bottom-0 w-full z-50 bg-background/70 border-t-2 md:hidden">
+      <div className="fixed bottom-0 w-full z-50 bg-background/70 border-t-2 md:hidden">
         <div className="max-w-7xl mx-auto flex justify-around h-16 items-center px-4">
           {NAVIGATIONS.map((nav) => (
             <MobileBottomNavItem
@@ -122,7 +159,7 @@ export function Navbar() {
             />
           ))}
         </div>
-      </footer>
+      </div>
     </>
   );
 }
@@ -209,10 +246,16 @@ function DesktopButtons() {
         </button>
       ) : (
         <>
-          <Button variant="outline" onClick={() => router.push("/signin")}>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => router.push("/signin")}
+          >
             Signin
           </Button>
-          <Button onClick={() => router.push("/signup")}>Signup</Button>
+          <Button size="lg" onClick={() => router.push("/signup")}>
+            Signup
+          </Button>
         </>
       )}
 
@@ -221,7 +264,9 @@ function DesktopButtons() {
         <div className="absolute top-14 right-0 w-64 bg-background/20 border shadow-lg rounded-xl py-3 px-2 z-50">
           <button
             onClick={() => {
-              router.push(`u/${session.username}`);
+              router.push(
+                session.username ? `/u/${session.username}` : "/setup"
+              );
               setOpen(false);
             }}
             className="flex items-center gap-2 px-4 py-3 w-full hover:bg-primary rounded-xl text-foreground hover:text-background text-base"
