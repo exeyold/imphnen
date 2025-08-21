@@ -1,30 +1,38 @@
-import { getQueryClient } from "@packages/client/query";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import { getSessionQueryOptions } from "~/features/auth/hooks/use-get-session";
-import { fetchSession } from "~/features/auth/http/fetch-session";
+"use client";
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const rawHeaders = await headers();
-  const queryClient = getQueryClient();
+import { useRouter } from "nextjs-toploader/app";
+import { useEffect } from "react";
+import { LuLoaderCircle } from "react-icons/lu";
+import { useGetSession } from "~/features/auth/hooks/use-get-session";
 
-  const data = await queryClient.fetchQuery({
-    queryKey: getSessionQueryOptions.queryKey,
-    queryFn: () => fetchSession(rawHeaders),
-  });
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const { data: session, isLoading: isSessionLoading } = useGetSession();
 
-  if (data) {
-    redirect("/");
+  useEffect(() => {
+    if (!isSessionLoading) {
+      if (session) {
+        router.replace("/");
+      }
+    }
+  }, [isSessionLoading, session, router]);
+
+  if (isSessionLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LuLoaderCircle className="w-10 h-10 animate-spin" />
+      </div>
+    );
   }
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      {children}
-    </HydrationBoundary>
-  );
+  // While redirecting, render a loader (avoid flash of children)
+  if (session) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LuLoaderCircle className="w-10 h-10 animate-spin" />
+      </div>
+    );
+  }
+
+  return children;
 }
