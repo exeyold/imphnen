@@ -45,6 +45,12 @@ export const auth = betterAuth({
     schema,
   }),
 
+  rateLimit: {
+    enabled: true,
+    window: 60,
+    max: 100,
+  },
+
   plugins: [
     ...(options.plugins ?? []),
     customSession(async ({ user, session }, _) => {

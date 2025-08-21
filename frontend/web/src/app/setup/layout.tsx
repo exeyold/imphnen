@@ -13,8 +13,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (!isSessionLoading) {
       if (!session) {
         router.replace("/signin");
-      } else if (!session.username) {
-        router.replace("/setup");
+      } else if (session.username) {
+        router.replace("/");
       }
     }
   }, [isSessionLoading, session, router]);
@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   }
 
   // While redirecting, render a loader (avoid flash of children)
-  if (!session || !session.username) {
+  if (!session || session.username) {
     return (
       <div className="flex justify-center items-center h-screen">
         <LuLoaderCircle className="w-10 h-10 animate-spin" />

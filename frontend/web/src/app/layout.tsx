@@ -8,7 +8,11 @@ import { ThemeProvider } from "~/layouts/theme-provider";
 import "~/styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "IMPHNEN",
+  title: {
+    default: "IMPHNEN",
+    template: "IMPHNEN | %s",
+  },
+  description: "IMPHNEN | Ingin Menjadi Programmer Handal Namun Enggan Ngoding",
 };
 
 const poppins = Poppins({

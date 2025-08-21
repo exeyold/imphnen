@@ -3,6 +3,7 @@
 import { authClient } from "@packages/client/auth";
 import { Button } from "@packages/ui/button";
 import { useMutation } from "@tanstack/react-query";
+import { FcGoogle } from "react-icons/fc";
 
 export function ButtonContinueGoogle() {
   const { mutate } = useMutation({
@@ -19,5 +20,10 @@ export function ButtonContinueGoogle() {
 
   const handleSignup = () => mutate();
 
-  return <Button onClick={handleSignup}>Continue with Google</Button>;
+  return (
+    <Button variant="outline" onClick={handleSignup}>
+      <FcGoogle className="size-5" />
+      Continue with Google
+    </Button>
+  );
 }

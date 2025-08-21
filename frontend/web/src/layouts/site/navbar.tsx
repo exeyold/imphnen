@@ -142,11 +142,11 @@ function DesktopButtons({ router }: { router: ReturnType<typeof useRouter> }) {
         </>
       ) : (
         <>
+          <ThemeSlider />
           <Button variant="outline" onClick={() => router.push("/signin")}>
             Signin
           </Button>
           <Button onClick={() => router.push("/signup")}>Signup</Button>
-          <ThemeSlider />
         </>
       )}
 
