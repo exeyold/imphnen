@@ -1,7 +1,9 @@
 "use client";
 
+import { authClient } from "@packages/client/auth";
 import { cn } from "@packages/client/tailwind";
 import { Button } from "@packages/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,6 +16,7 @@ import { ThemeSlider } from "../theme-slider";
 
 export function Navbar() {
   const { data: session, isLoading } = useGetSession();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -135,7 +138,16 @@ export function Navbar() {
                   Apps
                 </button>
                 <button
-                  onClick={() => setMobileProfileOpen(false)}
+                  onClick={async () =>
+                    await authClient.signOut({
+                      fetchOptions: {
+                        onSuccess: async () => {
+                          router.push("/");
+                          await queryClient.invalidateQueries();
+                        },
+                      },
+                    })
+                  }
                   className="flex items-center gap-2 px-4 py-2 rounded hover:bg-primary hover:text-background w-full text-left"
                 >
                   Logout
@@ -204,6 +216,7 @@ function DesktopNav() {
 
 function DesktopButtons() {
   const { data: session, isLoading } = useGetSession();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -283,7 +296,16 @@ function DesktopButtons() {
             Apps
           </button>
           <button
-            onClick={() => setOpen(false)}
+            onClick={async () =>
+              await authClient.signOut({
+                fetchOptions: {
+                  onSuccess: async () => {
+                    router.push("/");
+                    await queryClient.invalidateQueries();
+                  },
+                },
+              })
+            }
             className="flex items-center gap-2 px-4 py-3 w-full hover:bg-primary rounded-xl text-foreground hover:text-background text-base"
           >
             Logout
