@@ -1,15 +1,16 @@
 "use client";
 
+import { IconMoonFill, IconSunFill } from "@intentui/icons";
 import { Button } from "@packages/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import * as React from "react";
-import { LuMonitor, LuMoonStar, LuSunMedium } from "react-icons/lu";
+import { LuSunMedium } from "react-icons/lu";
 
-const themes: ("light" | "dark" | "system")[] = ["light", "dark", "system"];
+const themes: ("light" | "dark")[] = ["light", "dark"];
 
 export function ThemeSlider() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -18,11 +19,12 @@ export function ThemeSlider() {
 
   const [index, setIndex] = React.useState(0);
 
+  // Sync with actual theme after mount
   React.useEffect(() => {
-    if (mounted && theme) {
-      setIndex(themes.indexOf(theme as "light" | "dark" | "system"));
+    if (mounted && resolvedTheme) {
+      setIndex(themes.indexOf(resolvedTheme as "light" | "dark"));
     }
-  }, [mounted, theme]);
+  }, [mounted, resolvedTheme]);
 
   const handleToggle = () => {
     const nextIndex = (index + 1) % themes.length;
@@ -33,7 +35,9 @@ export function ThemeSlider() {
   if (!mounted) {
     // Prevent mismatch during hydration
     return (
-      <Button variant="outline" size="icon" className="rounded-full" disabled />
+      <Button variant="outline" size="icon" className="rounded-full" disabled>
+        <LuSunMedium className="size-5 opacity-0" />
+      </Button>
     );
   }
 
@@ -60,9 +64,8 @@ export function ThemeSlider() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="absolute flex items-center justify-center"
         >
-          {themes[index] === "light" && <LuSunMedium className="size-5" />}
-          {themes[index] === "dark" && <LuMoonStar className="size-5" />}
-          {themes[index] === "system" && <LuMonitor className="size-5" />}
+          {themes[index] === "light" && <IconSunFill className="size-5" />}
+          {themes[index] === "dark" && <IconMoonFill className="size-5" />}
         </motion.div>
       </AnimatePresence>
     </Button>

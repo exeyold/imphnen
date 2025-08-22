@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@intentui/icons": "^1.11.0",
     "@packages/client": "workspace:*",
     "@packages/ui": "workspace:*",
     "@tanstack/react-query": "^5.85.5",
