@@ -1,37 +1,68 @@
-import {
-  IconBubbleQuotes,
-  IconBubbleQuotesFill,
-  IconCalendar2,
-  IconCalendar2Fill,
-  IconCompass,
-  IconCompassFill,
-  IconHome2,
-  IconHome2Fill,
-} from "@intentui/icons";
+import { Icon } from "@iconify/react";
 
 export const NAVIGATIONS = [
   {
     title: "Home",
     link: "/",
-    icon: <IconHome2 className="size-6" />,
-    activeIcon: <IconHome2Fill className="size-6" />,
+    icon: (
+      <Icon
+        icon="solar:home-2-outline"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
+    activeIcon: (
+      <Icon
+        icon="solar:home-2-bold"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
   },
   {
     title: "Events",
     link: "/events",
-    icon: <IconCalendar2 className="size-6" />,
-    activeIcon: <IconCalendar2Fill className="size-6" />,
+    icon: (
+      <Icon
+        icon="solar:calendar-date-outline"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
+    activeIcon: (
+      <Icon
+        icon="solar:calendar-date-bold"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
   },
   {
     title: "Hackatons",
     link: "/hackatons",
-    icon: <IconCompass className="size-6" />,
-    activeIcon: <IconCompassFill className="size-6" />,
+    icon: (
+      <Icon
+        icon="solar:compass-outline"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
+    activeIcon: (
+      <Icon
+        icon="solar:compass-bold"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
   },
   {
     title: "Testimonials",
     link: "/testimonials",
-    icon: <IconBubbleQuotes className="size-6" />,
-    activeIcon: <IconBubbleQuotesFill className="size-6" />,
+    icon: (
+      <Icon
+        icon="solar:hashtag-chat-outline"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
+    activeIcon: (
+      <Icon
+        icon="solar:hashtag-chat-bold"
+        className="size-7 text-gray-500 dark:text-gray-400"
+      />
+    ),
   },
 ];

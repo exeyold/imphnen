@@ -1,6 +1,6 @@
 "use client";
 
-import { IconMoonFill, IconSunFill } from "@intentui/icons";
+import { Icon } from "@iconify/react";
 import { Button } from "@packages/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -10,7 +10,7 @@ import { LuSunMedium } from "react-icons/lu";
 const themes: ("light" | "dark")[] = ["light", "dark"];
 
 export function ThemeSlider() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -64,8 +64,18 @@ export function ThemeSlider() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="absolute flex items-center justify-center"
         >
-          {themes[index] === "light" && <IconSunFill className="size-5" />}
-          {themes[index] === "dark" && <IconMoonFill className="size-5" />}
+          {themes[index] === "light" && (
+            <Icon
+              icon="solar:sun-outline"
+              className="size-5 text-gray-500 dark:text-gray-400"
+            />
+          )}
+          {themes[index] === "dark" && (
+            <Icon
+              icon="solar:moon-stars-outline"
+              className="size-5 text-gray-500 dark:text-gray-400"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
     </Button>

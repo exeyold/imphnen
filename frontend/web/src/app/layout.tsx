@@ -32,7 +32,7 @@ export default function RootLayout({
       <body className={cn("antialiased", poppins.className)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           disableTransitionOnChange
         >
           <NextTopLoader
