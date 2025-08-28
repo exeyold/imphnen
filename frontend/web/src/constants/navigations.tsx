@@ -1,35 +1,32 @@
-import { Icon } from "@iconify/react";
+import { CalendarDate, Compass, HashtagChat, Home } from "@solar-icons/react";
 
 export const NAVIGATIONS = [
   {
     title: "Home",
     link: "/",
     icon: (
-      <Icon
-        icon="solar:home-2-outline"
+      <Home
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Outline"
       />
     ),
     activeIcon: (
-      <Icon
-        icon="solar:home-2-bold"
-        className="size-7 text-gray-500 dark:text-gray-400"
-      />
+      <Home className="size-7 text-gray-500 dark:text-gray-400" weight="Bold" />
     ),
   },
   {
     title: "Events",
     link: "/events",
     icon: (
-      <Icon
-        icon="solar:calendar-date-outline"
+      <CalendarDate
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Outline"
       />
     ),
     activeIcon: (
-      <Icon
-        icon="solar:calendar-date-bold"
+      <CalendarDate
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Bold"
       />
     ),
   },
@@ -37,15 +34,15 @@ export const NAVIGATIONS = [
     title: "Hackatons",
     link: "/hackatons",
     icon: (
-      <Icon
-        icon="solar:compass-outline"
+      <Compass
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Outline"
       />
     ),
     activeIcon: (
-      <Icon
-        icon="solar:compass-bold"
+      <Compass
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Bold"
       />
     ),
   },
@@ -53,15 +50,15 @@ export const NAVIGATIONS = [
     title: "Testimonials",
     link: "/testimonials",
     icon: (
-      <Icon
-        icon="solar:hashtag-chat-outline"
+      <HashtagChat
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Outline"
       />
     ),
     activeIcon: (
-      <Icon
-        icon="solar:hashtag-chat-bold"
+      <HashtagChat
         className="size-7 text-gray-500 dark:text-gray-400"
+        weight="Bold"
       />
     ),
   },

@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import { Button } from "@packages/ui/button";
+import { Moon, Sun } from "@solar-icons/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import * as React from "react";
@@ -65,15 +65,15 @@ export function ThemeSlider() {
           className="absolute flex items-center justify-center"
         >
           {themes[index] === "light" && (
-            <Icon
-              icon="solar:sun-outline"
+            <Sun
               className="size-5 text-gray-500 dark:text-gray-400"
+              weight="Outline"
             />
           )}
           {themes[index] === "dark" && (
-            <Icon
-              icon="solar:moon-stars-outline"
+            <Moon
               className="size-5 text-gray-500 dark:text-gray-400"
+              weight="Outline"
             />
           )}
         </motion.div>

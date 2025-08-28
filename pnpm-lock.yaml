@@ -106,15 +106,15 @@ importers:
 
   frontend/web:
     dependencies:
-      '@iconify/react':
-        specifier: ^6.0.0
-        version: 6.0.0(react@19.1.0)
       '@packages/client':
         specifier: workspace:*
         version: link:../../packages/client
       '@packages/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@solar-icons/react':
+        specifier: ^1.0.1
+        version: 1.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-query':
         specifier: ^5.85.5
         version: 5.85.5(react@19.1.0)
@@ -806,14 +806,6 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
-
-  '@iconify/react@6.0.0':
-    resolution: {integrity: sha512-eqNscABVZS8eCpZLU/L5F5UokMS9mnCf56iS1nM9YYHdH8ZxqZL9zyjSwW60IOQFsXZkilbBiv+1paMXBhSQnw==}
-    peerDependencies:
-      react: '>=16'
-
-  '@iconify/types@2.0.0':
-    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
 
   '@img/sharp-darwin-arm64@0.34.3':
     resolution: {integrity: sha512-ryFMfvxxpQRsgZJqBd4wsttYQbCxsJksrv9Lw/v798JcQ8+w84mBWuXwl+TT0WJ/WrYOLaYpwQXi3sA9nTIaIg==}
@@ -1550,6 +1542,13 @@ packages:
 
   '@sinclair/typebox@0.34.38':
     resolution: {integrity: sha512-HpkxMmc2XmZKhvaKIZZThlHmx1L0I/V1hWK1NubtlFnr6ZqdiOpV72TKudZUNQjZNsyDBay72qFEhEvb+bcwcA==}
+
+  '@solar-icons/react@1.0.1':
+    resolution: {integrity: sha512-qTF1ka2NWTeh5iPvKJVNXHDvqA+2UuixpNjVVMha5LynGFzy5deiNBnjd/TVtgPPvq1zW3/YRG8a6zdZbsZT9Q==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: '>= 16.8'
+      react-dom: '>= 16.8'
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -4423,13 +4422,6 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@iconify/react@6.0.0(react@19.1.0)':
-    dependencies:
-      '@iconify/types': 2.0.0
-      react: 19.1.0
-
-  '@iconify/types@2.0.0': {}
-
   '@img/sharp-darwin-arm64@0.34.3':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.2.0
@@ -5083,6 +5075,11 @@ snapshots:
       '@peculiar/asn1-x509': 2.4.0
 
   '@sinclair/typebox@0.34.38': {}
+
+  '@solar-icons/react@1.0.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   '@swc/helpers@0.5.15':
     dependencies:

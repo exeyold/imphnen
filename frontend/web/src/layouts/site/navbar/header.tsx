@@ -1,9 +1,9 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import { cn } from "@packages/client/tailwind";
 import { Avatar, AvatarFallback, AvatarImage } from "@packages/ui/avatar";
 import { buttonVariants } from "@packages/ui/button";
+import { MenuDotsCircle, UserCircle } from "@solar-icons/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAVIGATIONS } from "~/constants/navigations";
@@ -44,9 +44,9 @@ export function DesktopHeader() {
           ) : data.image ? (
             <UserDropdown />
           ) : (
-            <Icon
-              icon="solar:user-circle-bold"
+            <MenuDotsCircle
               className="size-7 text-gray-500 dark:text-gray-400"
+              weight="Bold"
             />
           )}
         </div>
@@ -65,9 +65,9 @@ export function MobileHeader() {
           <div className="size-8 rounded-full border bg-muted animate-pulse" />
         ) : !data ? (
           <Link href="/signin">
-            <Icon
-              icon="solar:user-circle-bold"
+            <UserCircle
               className="size-7 text-gray-500 dark:text-gray-400"
+              weight="Bold"
             />
           </Link>
         ) : data.image ? (
@@ -78,17 +78,14 @@ export function MobileHeader() {
             </AvatarFallback>
           </Avatar>
         ) : (
-          <Icon
-            icon="solar:user-circle-bold"
-            className="size-7 text-gray-500 dark:text-gray-400"
-          />
+          <UserCircle className="size-7 text-gray-500 dark:text-gray-400" />
         )}
 
         <LogoLink />
 
-        <Icon
-          icon="solar:menu-dots-circle-bold"
+        <MenuDotsCircle
           className="size-7 text-gray-500 dark:text-gray-400"
+          weight="Bold"
         />
       </div>
     </header>

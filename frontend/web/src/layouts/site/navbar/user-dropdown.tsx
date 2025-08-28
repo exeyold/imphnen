@@ -1,6 +1,5 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import { authClient } from "@packages/client/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@packages/ui/avatar";
 import {
@@ -11,6 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@packages/ui/dropdown-menu";
+import {
+  Logout,
+  Palette,
+  QuestionCircle,
+  Settings,
+  SquareTopDown,
+  Unread,
+  UserCircle,
+} from "@solar-icons/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "nextjs-toploader/app";
 import {
@@ -18,10 +26,81 @@ import {
   useGetSession,
 } from "~/features/auth/hooks/use-get-session";
 
+const menu = {
+  main: [
+    {
+      label: "Your Portfolio",
+      icon: (
+        <UserCircle
+          className="size-5 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      action: (router: ReturnType<typeof useRouter>, username = "") =>
+        router.push(username ? `/u/${username}` : "/setup"),
+    },
+    {
+      label: "Applications",
+      icon: (
+        <Palette
+          className="size-5 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      action: (router: ReturnType<typeof useRouter>) =>
+        router.push("/apps/home"),
+    },
+    {
+      label: "Settings",
+      icon: (
+        <Settings
+          className="size-5 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      action: (router: ReturnType<typeof useRouter>) =>
+        router.push("/settings"),
+    },
+  ],
+  secondary: [
+    {
+      label: "What‘s new?",
+      icon: (
+        <Unread
+          className="size-5 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      extraIcon: (
+        <SquareTopDown
+          className="size-4 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      action: () => window.open("/updates", "_blank", "noopener,noreferrer"),
+    },
+    {
+      label: "Get help?",
+      icon: (
+        <QuestionCircle
+          className="size-5 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      extraIcon: (
+        <SquareTopDown
+          className="size-4 text-gray-500 dark:text-gray-400"
+          weight="LineDuotone"
+        />
+      ),
+      action: () => window.open("/help", "_blank", "noopener,noreferrer"),
+    },
+  ],
+};
+
 export const UserDropdown = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-
   const { data } = useGetSession();
 
   return (
@@ -59,88 +138,35 @@ export const UserDropdown = () => {
 
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem
-              className="p-2 rounded-lg cursor-pointer"
-              onClick={() =>
-                router.push(data?.username ? `/u/${data?.username}` : "/setup")
-              }
-            >
-              <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:user-circle-line-duotone"
-                  className="size-5 text-gray-500 dark:text-gray-400"
-                />
-                Your Portfolio
-              </span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              className="p-2 rounded-lg cursor-pointer"
-              onClick={() => router.push("/apps/home")}
-            >
-              <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:palette-outline"
-                  className="size-5 text-gray-500 dark:text-gray-400"
-                />
-                Applications
-              </span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              className="p-2 rounded-lg cursor-pointer"
-              onClick={() => router.push("/settings")}
-            >
-              <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:settings-line-duotone"
-                  className="size-5 text-gray-500 dark:text-gray-400"
-                />
-                Settings
-              </span>
-            </DropdownMenuItem>
+            {menu.main.map(({ label, icon, action }, i) => (
+              <DropdownMenuItem
+                key={i}
+                className="p-2 rounded-lg cursor-pointer"
+                onClick={() => action(router, data?.username ?? "")}
+              >
+                <span className="flex items-center gap-1.5 font-medium">
+                  {icon}
+                  {label}
+                </span>
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
-
           <DropdownMenuGroup>
-            <DropdownMenuItem
-              className="p-2 rounded-lg cursor-pointer justify-between"
-              onClick={() =>
-                window.open("/updates", "_blank", "noopener,noreferrer")
-              }
-            >
-              <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:letter-unread-line-duotone"
-                  className="size-5 text-gray-500 dark:text-gray-400"
-                />
-                What&lsquo;s new?
-              </span>
-              <Icon
-                icon="solar:square-top-down-line-duotone"
-                className="size-4 text-gray-500 dark:text-gray-400"
-              />
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              className="p-2 rounded-lg cursor-pointer justify-between"
-              onClick={() =>
-                window.open("/help", "_blank", "noopener,noreferrer")
-              }
-            >
-              <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:question-circle-line-duotone"
-                  className="size-5 text-gray-500 dark:text-gray-400"
-                />
-                Get help?
-              </span>
-              <Icon
-                icon="solar:square-top-down-line-duotone"
-                className="size-4 text-gray-500 dark:text-gray-400"
-              />
-            </DropdownMenuItem>
+            {menu.secondary.map(({ label, icon, extraIcon, action }, i) => (
+              <DropdownMenuItem
+                key={i}
+                className="p-2 rounded-lg cursor-pointer justify-between"
+                onClick={action}
+              >
+                <span className="flex items-center gap-1.5 font-medium">
+                  {icon}
+                  {label}
+                </span>
+                {extraIcon}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
         </section>
 
@@ -162,9 +188,9 @@ export const UserDropdown = () => {
               }}
             >
               <span className="flex items-center gap-1.5 font-medium">
-                <Icon
-                  icon="solar:logout-2-bold-duotone"
+                <Logout
                   className="size-5 text-gray-500 dark:text-gray-400"
+                  weight="LineDuotone"
                 />
                 Log out
               </span>
